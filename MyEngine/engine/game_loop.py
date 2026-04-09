@@ -1,11 +1,13 @@
 import pygame
 
 class GameLoop:
-    def __init__(self, scene, renderer):
+    def __init__(self, scene, renderer, input):
         self.scene = scene
         self.renderer = renderer
+        self.input = input
         self.clock = pygame.time.Clock()
         self.Running = False
+        
 
     ## Function that runs the looping, updates the scene and the render
     def run(self, scene, fps=60):
@@ -19,13 +21,15 @@ class GameLoop:
             self.scene.update(delta)
             #self.scene.update(delta) ## update the scene
             self.renderer.draw(self.scene)
+            self.input.update()
             
             # Closing the window
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.end()
             
-            
+            # On input
+            #self.input.key_pressed(pygame.K_SPACE)
             #print("Fps and Delta : ", fps,"  ",delta)
 
     def end(self):

@@ -9,7 +9,7 @@ class Scene:
     def Initialize(self):
         self.root.ready()
 
-        red_box = SpriteNode(self.root, x=100, y=100)
+        red_box = SpriteNode(self.root,texture="engine/ball.png", x=100, y=100)
         self.root.children.append(red_box)
 
     def update(self, delta):
