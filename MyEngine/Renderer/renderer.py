@@ -11,5 +11,16 @@ class Renderer:
 
         screen = pygame.display.set_mode(size)
         
+
         screen.fill(grey)
+        self._draw_node(self.scene.root, screen)
         pygame.display.flip()
+
+    def draw_node(self, node, screen):
+        _draw_node(node, screen)
+
+    def _draw_node(self, node, screen):
+        if node.active:
+            node.draw(screen)
+            for child in node.children:
+                self._draw_node(child, screen)

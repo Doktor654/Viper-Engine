@@ -8,8 +8,12 @@ class Node:
         self.active = active
     
     def ready(self):
-        print("initialized")
+        print(f"{self.name} initialized")
+        for child in self.children:
+            child.ready()
     def update(self, delta):
-        pass
-    def draw(self):
-        pass
+        for child in self.children:
+            child.update(delta)
+    def draw(self,screen):
+        for child in self.children:
+            child.draw(screen)
