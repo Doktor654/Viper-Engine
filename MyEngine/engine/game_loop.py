@@ -12,10 +12,17 @@ class GameLoop:
         self.Running = True
         while self.Running:
             delta = self.clock.tick(fps) / 1000.0
-            
+
             #self.scene.update(delta) ## update the scene
             self.renderer.draw(self.scene)
-            print(fps,"  ",delta)
+            
+            # Closing the window
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.end()
+            
+            
+            print("Fps and Delta : ", fps,"  ",delta)
 
-    def end(self, scene):
+    def end(self):
         self.Running = False
