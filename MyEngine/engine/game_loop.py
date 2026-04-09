@@ -10,6 +10,9 @@ class GameLoop:
     ## Function that runs the looping, updates the scene and the render
     def run(self, scene, fps=60):
         self.Running = True
+        self.scene.Initialize()
+        
+        
         while self.Running:
             delta = self.clock.tick(fps) / 1000.0
 
@@ -22,7 +25,7 @@ class GameLoop:
                     self.end()
             
             
-            print("Fps and Delta : ", fps,"  ",delta)
+            #print("Fps and Delta : ", fps,"  ",delta)
 
     def end(self):
         self.Running = False

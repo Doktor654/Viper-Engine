@@ -1,0 +1,127 @@
+
+<style>
+.wrap{display:flex;min-height:540px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.sb{width:190px;flex-shrink:0;border-right:0.5px solid var(--color-border-tertiary);padding:10px 0;background:var(--color-background-secondary)}
+.sb-cat{padding:8px 14px 3px;font-size:11px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.05em;margin-top:6px}
+.sb-btn{display:block;width:100%;text-align:left;background:none;border:none;border-left:2px solid transparent;padding:7px 14px;font-size:13px;color:var(--color-text-secondary);cursor:pointer}
+.sb-btn:hover{background:var(--color-background-primary);color:var(--color-text-primary)}
+.sb-btn.on{background:var(--color-background-primary);color:var(--color-text-primary);font-weight:500;border-left-color:#7F77DD}
+.pane{flex:1;padding:24px 26px;overflow:auto}
+.pane h2{font-size:17px;font-weight:500;margin-bottom:4px;color:var(--color-text-primary)}
+.hrow{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.tag{font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px}
+.tp{background:#EEEDFE;color:#534AB7}
+.tt{background:#E1F5EE;color:#0F6E56}
+.tc{background:#FAECE7;color:#993C1D}
+.tg{background:#EAF3DE;color:#3B6D11}
+@media(prefers-color-scheme:dark){.tp{background:#3C3489;color:#CECBF6}.tt{background:#085041;color:#9FE1CB}.tc{background:#712B13;color:#F5C4B3}.tg{background:#27500A;color:#C0DD97}}
+.fp{font-size:12px;font-family:var(--font-mono);color:var(--color-text-tertiary)}
+.pane p{font-size:14px;color:var(--color-text-secondary);line-height:1.75;margin-bottom:12px}
+.pane p:last-child{margin-bottom:0}
+.godot{border-left:2px solid #7F77DD;padding:8px 12px;font-size:13px;color:var(--color-text-secondary);margin-top:16px;line-height:1.6}
+.godot strong{color:var(--color-text-primary)}
+.props{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.pill{font-size:12px;font-family:var(--font-mono);padding:3px 10px;border-radius:20px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:16px 0}
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-tertiary);margin-bottom:8px}
+</style>
+
+<div class="wrap">
+<nav class="sb">
+  <div class="sb-cat">Kärna</div>
+  <button class="sb-btn on" data-k="node">Node</button>
+  <button class="sb-btn" data-k="loop">Game loop</button>
+  <button class="sb-btn" data-k="scene">Scene</button>
+  <button class="sb-btn" data-k="input">Input</button>
+  <div class="sb-cat">Renderer</div>
+  <button class="sb-btn" data-k="renderer">Renderer</button>
+  <button class="sb-btn" data-k="sprite">Sprite</button>
+  <button class="sb-btn" data-k="camera">Camera</button>
+  <div class="sb-cat">Noder</div>
+  <button class="sb-btn" data-k="collision">CollisionBody</button>
+  <button class="sb-btn" data-k="label">Label</button>
+</nav>
+<div class="pane" id="pane"></div>
+</div>
+
+<script>
+var D={
+node:{title:"Node",tag:"Basklass",tc:"tp",file:"engine/node.py",
+ansvар:"Grunden som allt annat bygger på. Representerar ett objekt i spelvärlden — oavsett om det är en spelare, en vägg, en kamera eller ett ljud. Varje Node kan ha barn-noder, och barn ärver förälderns position i världen.",
+hur:"Varje Node har tre livscykel-moment: när den skapas, när den läggs till i scenen (ready), och varje frame (process). Node själv gör ingenting — det är meningen att du ska ärva från den och fylla i beteendet själv. När motorn säger 'uppdatera dig' skickar varje Node vidare anropet till sina barn, så hela trädet uppdateras automatiskt utan att du behöver tänka på det.",
+data:["position","rotation","scale","children","parent"],
+godot:"I Godot är detta Node-klassen. Allt du lägger i en scen är en Node av något slag. _ready() och _process() är identiska koncept."},
+
+loop:{title:"Game loop",tag:"Motor",tc:"tp",file:"engine/game_loop.py",
+ansvar:"Hjärtat i hela motorn. Den snurrar konstant så länge spelet är igång och håller ihop alla delar — den mäter tid, ber spelet uppdatera sig, och ber renderaren rita.",
+hur:"Varje varv i loopen händer tre saker i ordning: mät hur lång tid som gått sedan förra varvet (delta time), uppdatera hela spelträdet, rita allt på skärmen. Delta time är avgörande — det är antalet sekunder sedan förra frame, och all rörelse i spelet ska skalas med det. Utan delta time går spelet dubbelt så fort på en snabb dator.",
+data:["delta time","FPS-lock","running-flagga"],
+godot:"Detta är Godots SceneTree-loop under huven. Delta är exakt samma sak som parametern i _process(delta)."},
+
+scene:{title:"Scene",tag:"Motor",tc:"tp",file:"engine/scene.py",
+ansvar:"En scen är en samling noder som hör ihop — en menyn, en bana, en game over-skärm. SceneManager håller koll på vilken scen som är aktiv och låter dig byta mellan dem.",
+hur:"En scen är egentligen bara en Node högst upp i ett träd — allt du lägger till i scenen blir barn till den. SceneManager vet om exakt en aktiv scen åt gången. När du byter scen stängs den gamla ner och den nya startar upp — alla noder i den nya scenen får sin ready-signal.",
+data:["namn","rot-nod","aktiv scen"],
+godot:"En .tscn-fil i Godot är en scen. get_tree().change_scene_to_file() = byta aktiv scen. SceneTree = SceneManager."},
+
+input:{title:"Input",tag:"Motor",tc:"tp",file:"engine/input.py",
+ansvar:"Lyssnar på tangentbord och mus och omvandlar det till namngivna actions som spel-logiken kan fråga om. Spelet ska aldrig behöva känna till vilken fysisk knapp som är bunden till vad.",
+hur:"Du definierar actions med namn, t.ex. 'jump' eller 'shoot', och binder dem till fysiska knappar. Varje frame uppdateras en lista med vilka actions som är aktiva just nu. Spel-koden frågar 'är jump aktiv?' — inte 'är mellanslag nertryckt?'. Det gör det enkelt att binda om knappar utan att röra spel-logiken.",
+data:["action-bindings","aktiva actions","föregående frame (för engångstryck)"],
+godot:"InputMap i Godot är exakt detta. Input.is_action_pressed() och is_action_just_pressed() är samma koncept."},
+
+renderer:{title:"Renderer",tag:"Renderer",tc:"tt",file:"renderer/renderer.py",
+ansvar:"Ansvarar för allt som syns på skärmen. Varje frame ritar den om hela bilden från scratch — den vet ingenting om spel-logik, den tar bara emot ett nodträd och ritar det.",
+hur:"Varje frame börjar Renderer med att rensa skärmen (annars ser man spöken av förra frame). Sedan går den igenom hela nodträdet och ritar varje nod som har ett visuellt utseende. Till sist visar den den färdiga bilden. Renderaren pratar med kameran för att veta vilket område av världen som ska visas.",
+data:["skärmstorlek","bakgrundsfärg","referens till kamera"],
+godot:"RenderingServer i Godot. Du ser den aldrig direkt, men det är exakt det här som händer varje frame."},
+
+sprite:{title:"Sprite",tag:"Renderer",tc:"tt",file:"renderer/sprite.py",
+ansvar:"En Node som har en bild. Är det synliga representationen av ett objekt i spelvärlden — spelaren, en fiende, en plattform.",
+hur:"Sprite ärver allt från Node (position, rotation, scale) och lägger till en bild ovanpå. När Renderer ber Sprite rita sig räknar den ut var på skärmen bilden ska hamna genom att ta sin världsposition och dra ifrån kamerans position. Rotation och skalning appliceras på bilden innan den ritas.",
+data:["bild","ärver position/rotation/scale från Node"],
+godot:"Sprite2D i Godot. Exakt samma koncept — noden har en texture och en position i världen."},
+
+camera:{title:"Camera",tag:"Renderer",tc:"tt",file:"renderer/camera.py",
+ansvar:"Bestämmer vilket område av spelvärlden som visas på skärmen. Utan kamera ritas allt från världens origo — med kamera kan du följa spelaren runt i en stor värld.",
+hur:"Kameran är egentligen bara en position i världskoordinater. Renderaren drar ifrån kamerans position från varje nods position när den ritar — det är hela tricket. Om kameran följer spelaren med en mjuk interpolation (lerp) glider den efter spelaren istället för att hoppa direkt dit varje frame.",
+data:["position (ärver från Node)","mål att följa","lerp-hastighet"],
+godot:"Camera2D i Godot med Position Smoothing aktiverat. Lerp-hastigheten motsvarar position_smoothing_speed."},
+
+collision:{title:"CollisionBody",tag:"Physics",tc:"tc",file:"physics/collision.py",
+ansvar:"En Node som kan krocka med andra noder. CollisionSystem kontrollerar varje frame vilka CollisionBody-noder som överlappar varandra och meddelar dem.",
+hur:"Varje CollisionBody har en osynlig rektangel (AABB — Axis-Aligned Bounding Box) runt sig. AABB är den enklaste kollisionsformen: två rektanglar krockar om de överlappar på både X- och Y-axeln. CollisionSystem går igenom alla registrerade CollisionBody-noder varje frame och letar efter överlapp. Hittar den ett par som krockar meddelar den båda så att de kan reagera.",
+data:["bredd","höjd","ärver position från Node"],
+godot:"Area2D med CollisionShape2D (RectangleShape2D) i Godot. body_entered-signalen = on_collide()."},
+
+label:{title:"Label",tag:"Renderer",tc:"tt",file:"renderer/label.py",
+ansvar:"En Node som visar text på skärmen. Används för poäng, dialoger, HUD-information och liknande.",
+hur:"Label ärver position från Node precis som Sprite, men ritar text istället för en bild. Fontobjektet skapas en gång och återanvänds — att skapa det varje frame är onödigt dyrt. Vill du att texten sitter fast på skärmen (HUD) istället för att följa med världen behöver du bara ignorera kamerans offset när du räknar ut skärm-positionen.",
+data:["text","teckenstorlek","färg","font (skapas en gång)"],
+godot:"Label-noden i Godot. self.text = label.text. CanvasLayer i Godot = HUD som inte påverkas av kameran."}
+};
+
+function show(k){
+  var d=D[k];
+  var html='<div class="hrow"><h2>'+d.title+'</h2><span class="tag '+d.tc+'">'+d.tag+'</span><span class="fp">'+d.file+'</span></div>';
+  html+='<div class="section-label">Ansvar</div><p>'+d.ansvar+'</p>';
+  html+='<hr class="divider">';
+  html+='<div class="section-label">Hur det fungerar</div><p>'+d.hur+'</p>';
+  html+='<hr class="divider">';
+  html+='<div class="section-label">Håller koll på</div><div class="props">';
+  d.data.forEach(function(p){html+='<span class="pill">'+p+'</span>';});
+  html+='</div>';
+  html+='<div class="godot"><strong>Godot-kopplingen:</strong> '+d.godot+'</div>';
+  document.getElementById('pane').innerHTML=html;
+}
+
+document.querySelectorAll('.sb-btn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.sb-btn').forEach(function(x){x.classList.remove('on');});
+    this.classList.add('on');
+    show(this.dataset.k);
+  });
+});
+
+show('node');
+</script>

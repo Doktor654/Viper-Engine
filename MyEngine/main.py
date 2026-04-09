@@ -11,6 +11,7 @@ the_scene = Scene()
 the_renderer = Renderer(the_scene)
 the_game_loop = GameLoop(the_scene, the_renderer)
 
+
 the_game_loop.run(the_scene)
 
 
