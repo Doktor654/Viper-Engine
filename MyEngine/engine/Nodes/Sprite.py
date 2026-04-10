@@ -13,9 +13,11 @@ class SpriteNode(Node):
     def draw(self, screen):
         if self.texture != None:
             spriteTexture = pygame.image.load(self.texture)
+            
             spriteRect = spriteTexture.get_rect()
             spriteRect.x = self.x
             spriteRect.y = self.y
+            spriteTexture = pygame.transform.scale(spriteTexture, (self.width, self.height))
             screen.blit(spriteTexture, spriteRect)
         else:
             pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
