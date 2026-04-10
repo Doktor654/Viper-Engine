@@ -17,3 +17,14 @@ class Node:
     def draw(self,screen):
         for child in self.children:
             child.draw(screen)
+
+    ## DEBUGGING THE HIERARCHY TREE
+    def debug_print_tree(self, depth=0):
+
+        prefix = "  " * depth
+        state = "\✓" if self.active else "/✗"
+
+        print(f"{prefix}{state} {self.name}")
+
+        for child in self.children:
+            child.debug_print_tree(depth + 1)
