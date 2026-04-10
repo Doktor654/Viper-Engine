@@ -22,7 +22,10 @@ class GameLoop:
             self.scene.update(delta, self.input)
             self.renderer.draw(self.scene)
             
-            
+            ## Test to switch camera
+            if self.input.key_pressed_once(pygame.K_SPACE):
+                self.scene.camera.follow(scene.player2)
+
             # Closing the window
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

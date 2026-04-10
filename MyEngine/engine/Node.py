@@ -14,9 +14,8 @@ class Node:
     def update(self, delta, the_input):
         for child in self.children:
             child.update(delta, the_input)
-    def draw(self,screen):
-        for child in self.children:
-            child.draw(screen)
+    def draw(self, screen, offset=(0, 0)):
+        pass
 
     ## DEBUGGING THE HIERARCHY TREE
     def debug_print_tree(self, depth=0):

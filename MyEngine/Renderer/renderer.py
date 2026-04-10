@@ -6,20 +6,27 @@ class Renderer:
         self.size = (800, 800)
         self.screen = pygame.display.set_mode(self.size)
         pygame.display.set_caption("PyGame Engine")
-    def draw(self, scene):
-        speed = [2, 2]
-        black = 0, 0, 0
-        grey = 128, 128, 128
 
-        self.screen.fill(grey)
-        self._draw_node(self.scene.root, self.screen)
+    def draw(self, scene):
+        self.screen.fill((128, 128, 128))
+
+        self._draw_node(self.scene.root)
+
         pygame.display.flip()
 
-    def draw_node(self, node, screen):
-        _draw_node(node, self.screen)
+    def _draw_node(self, node):
+        if not node.active:
+            return
 
-    def _draw_node(self, node, screen):
-        if node.active:
-            node.draw(self.screen)
-            for child in node.children:
-                self._draw_node(child, self.screen)
+        offset = (0, 0)
+
+        if self.scene.camera:
+            offset = (
+                self.scene.camera.position[0] - (self.size[0] /2),
+                self.scene.camera.position[1] - (self.size[1] / 2)
+            )
+
+        node.draw(self.screen, offset)
+
+        for child in node.children:
+            self._draw_node(child)

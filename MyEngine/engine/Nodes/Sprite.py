@@ -2,7 +2,7 @@ import pygame
 from engine.Nodes.TransformNode import TransformNode
 
 class SpriteNode(TransformNode):
-    def __init__(self, parent, children=[], name="Sprite", texture=None, x=100, y=100, width=30, height=30, color=(255,255,255), active=True):
+    def __init__(self, parent, children=[], name="Sprite", texture=None, x=100, y=100, width=0, height=0, color=(255,255,255), active=True):
         super().__init__(parent, children or [], name, active)
         self.x = x
         self.y = y
@@ -10,17 +10,19 @@ class SpriteNode(TransformNode):
         self.height = height
         self.color = color
         self.texture = texture
-    def draw(self, screen):
+    
+    def draw(self, screen, offset=(0, 0)):
         if self.texture != None:
             spriteTexture = pygame.image.load(self.texture)
             
             spriteRect = spriteTexture.get_rect()
-            spriteRect.x = self.world_position[0]
-            spriteRect.y = self.world_position[1]
-            spriteTexture = pygame.transform.scale(spriteTexture, (self.width, self.height))
+            spriteRect.x = self.world_position[0] - offset[0]
+            spriteRect.y = self.world_position[1] - offset[1]
+            if self.width != 0 or self.height != 0:
+                spriteTexture = pygame.transform.scale(spriteTexture, (self.width, self.height))
             screen.blit(spriteTexture, spriteRect)
         else:
-            pygame.draw.rect(screen, self.color, (self.world_position[0], self.world_position[1], self.height))
+            pygame.draw.rect(screen, self.color, (self.world_position[0], self.world_position[1]))
     
     def _update_node(self, node, delta, the_input):
         if node.active:
