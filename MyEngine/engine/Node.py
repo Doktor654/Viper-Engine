@@ -11,9 +11,9 @@ class Node:
         print(f"{self.name} initialized")
         for child in self.children:
             child.ready()
-    def update(self, delta):
+    def update(self, delta, the_input):
         for child in self.children:
-            child.update(delta)
+            child.update(delta, the_input)
     def draw(self,screen):
         for child in self.children:
             child.draw(screen)

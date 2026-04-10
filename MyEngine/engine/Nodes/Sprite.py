@@ -20,8 +20,25 @@ class SpriteNode(Node):
         else:
             pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
     
-    def _update_node(self, node, delta):
+    def _update_node(self, node, delta, the_input):
         if node.active:
-            node.update(delta)
+            node.update(delta, the_input)
             for child in node.children:
                 child._update_node(child, delta)
+
+            if the_input.key_pressed(pygame.K_UP):
+                
+                node.y -= 100 * delta
+                print("Up ", node.y)
+            if the_input.key_pressed(pygame.K_DOWN):
+                
+                node.y += 100 * delta
+                print("Down ", node.y)
+            if the_input.key_pressed(pygame.K_LEFT):
+                
+                node.x -= 100 * delta
+                print("LEFT ", node.x)
+            if the_input.key_pressed(pygame.K_RIGHT):
+                
+                node.x += 100 * delta
+                print("RIGHT ", node.x)

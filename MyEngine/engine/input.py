@@ -2,16 +2,23 @@ import pygame
 
 class Input:
     def __init__(self):
-        pass
+        self.current_keys = None
+        self.previous_keys = None
 
     def update(self):
-        pass
-    
-    def key_pressed(self, target_key):
-        keys = pygame.key.get_pressed()
+        # Spara gamla state
+        self.previous_keys = self.current_keys
 
-        if keys[target_key]:
-            print("Target_key_hit")
-            return True
-        
+        # Hämta nya
+        self.current_keys = pygame.key.get_pressed()
+
+    def key_pressed(self, target_key):
+        if self.current_keys[target_key]:
+            return True       
         return False
+
+   #def key_pressed_once(self, target_key):
+   #    if self.current_keys[target_key]:
+   #        self.current_keys = None
+   #        return True
+   #    return False

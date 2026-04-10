@@ -17,11 +17,11 @@ class GameLoop:
         
         while self.Running:
             delta = self.clock.tick(fps) / 1000.0
-
-            self.scene.update(delta)
-            #self.scene.update(delta) ## update the scene
-            self.renderer.draw(self.scene)
+            
             self.input.update()
+            self.scene.update(delta, self.input)
+            self.renderer.draw(self.scene)
+            
             
             # Closing the window
             for event in pygame.event.get():
