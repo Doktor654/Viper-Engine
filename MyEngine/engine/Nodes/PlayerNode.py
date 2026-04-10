@@ -16,16 +16,20 @@ class PlayerNode(TransformNode):
 
             if the_input.key_pressed(pygame.K_UP):
                 self.position[1] -= 100 * delta
-                print("Up ", node.y)
+                print("Up ", self.position[1])
             if the_input.key_pressed(pygame.K_DOWN):
                 
                 self.position[1] += 100 * delta
-                print("Down ", node.y)
+                print("Down ", self.position[1])
             if the_input.key_pressed(pygame.K_LEFT):
                 
                 self.position[0] -= 100 * delta
-                print("LEFT ", node.x)
+                print("LEFT ", self.position[0])
             if the_input.key_pressed(pygame.K_RIGHT):
                 
                 self.position[0] += 100 * delta
-                print("RIGHT ", node.x)
+                print("RIGHT ", self.position[0])
+
+            if the_input.key_pressed_once(pygame.K_SPACE):
+                self.position[1] -= 1000 * delta
+                print("once jump")
