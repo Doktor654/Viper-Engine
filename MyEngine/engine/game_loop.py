@@ -1,8 +1,9 @@
 import pygame
 
 class GameLoop:
-    def __init__(self, scene, renderer, input):
+    def __init__(self, scene,collision_system ,renderer, input):
         self.scene = scene
+        self.collision_system = collision_system
         self.renderer = renderer
         self.input = input
         self.clock = pygame.time.Clock()
@@ -12,7 +13,8 @@ class GameLoop:
     ## Function that runs the looping, updates the scene and the render
     def run(self, scene, fps=60):
         self.Running = True
-        self.scene.Initialize()
+        self.scene.Initialize(self.collision_system)
+        
         
         
         while self.Running:
@@ -20,11 +22,12 @@ class GameLoop:
             
             self.input.update()
             self.scene.update(delta, self.input)
+            self.collision_system.check_collisions()
             self.renderer.draw(self.scene)
             
             ## Test to switch camera
-            if self.input.key_pressed_once(pygame.K_SPACE):
-                self.scene.camera.follow(scene.player2)
+            #if self.input.key_pressed_once(pygame.K_SPACE):
+            #    self.scene.camera.follow(scene.player2)
 
             # Closing the window
             for event in pygame.event.get():

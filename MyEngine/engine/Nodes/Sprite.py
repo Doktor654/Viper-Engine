@@ -28,4 +28,4 @@ class SpriteNode(TransformNode):
         if node.active:
             node.update(delta, the_input)
             for child in node.children:
-                child._update_node(child, delta)
+                child._update_node(child, delta, the_input)

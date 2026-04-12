@@ -3,7 +3,7 @@ import pygame
 class Renderer:
     def __init__(self, scene):
         self.scene = scene
-        self.size = (800, 800)
+        self.size = (400, 400)
         self.screen = pygame.display.set_mode(self.size)
         pygame.display.set_caption("PyGame Engine")
 
