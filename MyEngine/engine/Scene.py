@@ -21,14 +21,14 @@ class Scene:
         self.red_box = SpriteNode(self.player,texture="engine/TestAssets/ball.png",name="RedBox1", x=100, y=100, width=50, height=50)
         self.player.children.append(self.red_box)
 
-        self.player_collision = CollisionBody(self.player,color=(9,0,155, 80) ,name="Player1Collision", width=50, height=50)
+        self.player_collision = CollisionBody(self.player,color=(9,0,155, 25) ,name="Player1Collision", width=50, height=50, static=False)
         self.player.children.append(self.player_collision)
         collision_system.add_to_bodies(self.player_collision)
 
         self.redball = SpriteNode(self.root, name="Red Ball", texture="engine/TestAssets/redBall.png", x=800, y=100, width=50, height=50, active=True)
         self.root.children.append(self.redball)
 
-        self.redball_collision = CollisionBody(self.redball, color=(155,0,0, 100) ,name="RedballCollision", width=50, height=50)
+        self.redball_collision = CollisionBody(self.redball, color=(155,0,0, 25) ,name="RedballCollision", width=50, height=50)
         self.redball.children.append(self.redball_collision)
         collision_system.add_to_bodies(self.redball_collision)
         

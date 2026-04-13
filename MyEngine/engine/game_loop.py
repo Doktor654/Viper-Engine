@@ -21,8 +21,9 @@ class GameLoop:
             delta = self.clock.tick(fps) / 1000.0
             
             self.input.update()
-            self.scene.update(delta, self.input)
             self.collision_system.check_collisions()
+            self.scene.update(delta, self.input)
+            
             self.renderer.draw(self.scene)
             
             ## Test to switch camera
