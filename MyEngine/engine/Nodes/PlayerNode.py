@@ -41,16 +41,16 @@ class PlayerNode(TransformNode):
             for child in node.children:
                 child._update_node(child, delta, the_input)
 
-            if not self.colliding_y:
-                if the_input.key_pressed(pygame.K_UP):
-                    self.position[1] -= 100 * delta
-                if the_input.key_pressed(pygame.K_DOWN):
-                    self.position[1] += 100 * delta
-            if not self.colliding_x:
-                if the_input.key_pressed(pygame.K_LEFT):
-                    self.position[0] -= 100 * delta
-                if the_input.key_pressed(pygame.K_RIGHT):
-                    self.position[0] += 100 * delta
+        #    if not self.colliding_y:
+        #        if the_input.key_pressed(pygame.K_UP):
+        #            self.position[1] -= 100 * delta
+        #        if the_input.key_pressed(pygame.K_DOWN):
+        #            self.position[1] += 100 * delta
+        #    if not self.colliding_x:
+        #        if the_input.key_pressed(pygame.K_LEFT):
+        #            self.position[0] -= 100 * delta
+        #        if the_input.key_pressed(pygame.K_RIGHT):
+        #            self.position[0] += 100 * delta
 
             self.colliding_x = False
             self.colliding_y = False

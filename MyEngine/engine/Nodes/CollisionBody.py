@@ -34,7 +34,7 @@ class CollisionBody(TransformNode):
         if other.static:
             self.parent.collided(self.get_rect(), other.get_rect())
             
-        print("%s Collided with %s" % (self.name, other.name))
+        #print("%s Collided with %s" % (self.name, other.name))
 
     def get_rect(self):
         if self.body != None:

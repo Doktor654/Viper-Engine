@@ -19,12 +19,13 @@ class GameLoop:
         
         while self.Running:
             delta = self.clock.tick(fps) / 1000.0
-            
+            pygame.display.set_caption(f"FPS: {self.clock.get_fps():.0f}")
             self.input.update()
             self.collision_system.check_collisions()
             self.scene.update(delta, self.input)
             
             self.renderer.draw(self.scene)
+            
             
             ## Test to switch camera
             #if self.input.key_pressed_once(pygame.K_SPACE):

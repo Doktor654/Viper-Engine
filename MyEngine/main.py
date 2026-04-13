@@ -14,7 +14,7 @@ the_scene = Scene(the_input)
 the_collision_system = CollisionSystem()
 
 
-the_renderer = Renderer(the_scene)
+the_renderer = Renderer(the_scene, (400, 400))
 the_game_loop = GameLoop(the_scene, the_collision_system ,the_renderer, the_input)
 
 

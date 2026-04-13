@@ -17,6 +17,20 @@ class Node:
     def draw(self, screen, offset=(0, 0)):
         pass
 
+    def remove_from_scene(self, collision_system=None):
+        if self.parent and self in self.parent.children:
+            self.parent.children.remove(self)
+        
+        if collision_system:
+            self._remove_collisions(collision_system)
+
+    def _remove_collisions(self, collision_system):
+        from engine.Nodes.CollisionBody import CollisionBody
+        if isinstance(self, CollisionBody) and self in collision_system.collision_bodies:
+            collision_system.collision_bodies.remove(self)
+        for child in self.children:
+            child._remove_collisions(collision_system)
+
     ## DEBUGGING THE HIERARCHY TREE
     def debug_print_tree(self, depth=0):
 

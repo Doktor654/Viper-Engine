@@ -11,6 +11,9 @@ class CameraNode(TransformNode):
 
     def follow(self, target_node):
         self.target = target_node
+        
+    def set_position(self,x,y):
+        self.position = [x,y]
     
     
     def _update_node(self, node, delta, the_input=None):
