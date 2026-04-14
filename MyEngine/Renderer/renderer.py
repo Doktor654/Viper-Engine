@@ -11,6 +11,8 @@ class Renderer:
         self.screen.fill((128, 128, 128))
 
         self._draw_node(self.scene.root)
+        
+        self._draw_UI(self.scene.root)
 
         pygame.display.flip()
 
@@ -18,21 +20,28 @@ class Renderer:
         if not node.active:
             return
 
+        if hasattr(node,"screen_space"):
+            return
         offset = (0, 0)
 
-        if not hasattr(node, "screen_space"):
+        if self.scene.camera:
+            offset = (
+                self.scene.camera.position[0] - (self.size[0] /2),
+                self.scene.camera.position[1] - (self.size[1] / 2)
+            )
 
-            if self.scene.camera:
-                offset = (
-                    self.scene.camera.position[0] - (self.size[0] /2),
-                    self.scene.camera.position[1] - (self.size[1] / 2)
-                )
+        node.draw(self.screen, offset)
 
-            node.draw(self.screen, offset)
-            
-        elif hasattr(node,"screen_space"):
+        for child in node.children:
+            self._draw_node(child)
+    
+    def _draw_UI(self, node):
+        if not node.active:
+            return
+
+        if hasattr(node,"screen_space"):
             if node.screen_space==True:
                 node.draw(self.screen)
 
         for child in node.children:
-            self._draw_node(child)
+            self._draw_UI(child)

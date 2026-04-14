@@ -14,14 +14,13 @@ class LabelNode(UINode):
         # Fonts
         self.font = font
         self.font_size = font_size
-
+        self.my_font = pygame.font.SysFont(self.font, self.font_size)
 
 
     def draw(self, screen):
         
-        my_font = pygame.font.SysFont(self.font, self.font_size)
 
-        my_label = my_font.render(self.text, 1, (155,0,0) )
+        my_label = self.my_font.render(self.text, 1, (155,0,0) )
         screen.blit(my_label, (self.x,self.y))        
 
     def _update_node(self, node, delta, the_input):
