@@ -20,13 +20,19 @@ class Renderer:
 
         offset = (0, 0)
 
-        if self.scene.camera:
-            offset = (
-                self.scene.camera.position[0] - (self.size[0] /2),
-                self.scene.camera.position[1] - (self.size[1] / 2)
-            )
+        if not hasattr(node, "screen_space"):
 
-        node.draw(self.screen, offset)
+            if self.scene.camera:
+                offset = (
+                    self.scene.camera.position[0] - (self.size[0] /2),
+                    self.scene.camera.position[1] - (self.size[1] / 2)
+                )
+
+            node.draw(self.screen, offset)
+            
+        elif hasattr(node,"screen_space"):
+            if node.screen_space==True:
+                node.draw(self.screen)
 
         for child in node.children:
             self._draw_node(child)

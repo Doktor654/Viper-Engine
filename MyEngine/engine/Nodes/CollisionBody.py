@@ -5,8 +5,8 @@ from engine.CollisionSystem import CollisionSystem
 class CollisionBody(TransformNode):
     def __init__(self, parent, children=[], name="CollisionBody",color=(100,100,100) ,x=0, y=0, active=True, width=0, height=0, collision_type="Rect", static=True):
         super().__init__(parent, children or [], name, active)
-        self.world_position[0] = x
-        self.world_position[1] = y
+        self.position[0] = x
+        self.position[1] = y
 
         self.color = color
 

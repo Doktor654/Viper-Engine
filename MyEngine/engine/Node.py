@@ -17,6 +17,9 @@ class Node:
     def draw(self, screen, offset=(0, 0)):
         pass
 
+    def collided(self, my_rect, other_rect):
+        pass
+
     def remove_from_scene(self, collision_system=None):
         if self.parent and self in self.parent.children:
             self.parent.children.remove(self)

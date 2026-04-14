@@ -1,24 +1,25 @@
 import pygame
 
 class GameLoop:
-    def __init__(self, scene,collision_system ,renderer, input):
+    def __init__(self, scene,collision_system ,renderer, input, fps=60):
         self.scene = scene
         self.collision_system = collision_system
         self.renderer = renderer
         self.input = input
         self.clock = pygame.time.Clock()
         self.Running = False
+        self.fps = fps
         
 
     ## Function that runs the looping, updates the scene and the render
-    def run(self, scene, fps=60):
+    def run(self, scene):
         self.Running = True
         self.scene.Initialize(self.collision_system)
         
         
         
         while self.Running:
-            delta = self.clock.tick(fps) / 1000.0
+            delta = self.clock.tick(self.fps) / 1000.0
             pygame.display.set_caption(f"FPS: {self.clock.get_fps():.0f}")
             self.input.update()
             self.collision_system.check_collisions()

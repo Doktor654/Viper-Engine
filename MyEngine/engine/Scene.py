@@ -11,6 +11,7 @@ class Scene:
         self.root = Node(parent=None, children=[], name="Root", active=True)
     
     def Initialize(self, collision_system):
+        pygame.init()
         self.root.ready()
 
         ## If for example self.player is used, then you can access the node through scene.node. so kinda like a global node.
