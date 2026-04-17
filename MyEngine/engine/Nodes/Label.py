@@ -3,7 +3,7 @@ from engine.Nodes.UINode import UINode
 
 class LabelNode(UINode):
     def __init__(self, parent, children=[], name="Label", text="Put Text Here",font="monospace",font_size=16,x=100,y=100, width=0, height=0, active=True, screen_space=True):
-        super().__init__(parent, children or [], name, active, x, y, screen_space)
+        super().__init__(parent, children or [], name, x, y, width, height, active, screen_space)
         self.x = x
         self.y = y
         self.width = width
