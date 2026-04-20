@@ -6,4 +6,5 @@ from engine.Nodes.Button import ButtonNode
 from engine.Nodes.TransformNode import TransformNode
 from engine.Nodes.UINode import UINode
 from engine.Nodes.PlayerNode import PlayerNode
+from engine.Nodes.Timer import TimerNode
 from engine.Nodes.ScrollingBackground import ScrollingBackground
