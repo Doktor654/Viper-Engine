@@ -14,8 +14,17 @@ class Node:
     def update(self, delta, the_input):
         for child in self.children:
             child.update(delta, the_input)
+    
+    ## Passing value to avoid errors
     def draw(self, screen, offset=(0, 0)):
         pass
+
+    def _update_node(self, node, delta, the_input):
+        '''node, delta, input'''
+        if node.active:
+            node.update(delta, the_input)
+            for child in node.children:
+                child._update_node(child, delta, the_input)
 
     def collided(self, my_rect, other_rect):
         pass

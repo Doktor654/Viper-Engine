@@ -3,6 +3,7 @@ from engine.Nodes.TransformNode import TransformNode
 
 class PlayerNode(TransformNode):
     def __init__(self, parent, children=[], name="PlayerNode", x=0, y=0, active=True):
+        
         super().__init__(parent, children or [], name, active)
             
         self.position[0] = x
