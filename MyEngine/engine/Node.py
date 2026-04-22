@@ -26,6 +26,17 @@ class Node:
             for child in node.children:
                 child._update_node(child, delta, the_input)
 
+    def add_child(self, child):
+        if child.parent == self:
+            self.children.append(child)
+            child.parent = self
+
+    def reparent_child(self, child, new_parent):
+        if child.parent == self:
+            self.children.remove(child)
+            child.parent = new_parent
+            new_parent.children.append(child)
+        
     def collided(self, my_rect, other_rect):
         pass
 
