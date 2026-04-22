@@ -2,7 +2,7 @@ import pygame
 from engine.Nodes.TransformNode import TransformNode
 
 class SpriteNode(TransformNode):
-    def __init__(self, parent, children=[], name="Sprite", texture=None, x=100, y=100, width=0, height=0, color=(255,255,255), active=True, flip_y=False):
+    def __init__(self, parent, children=[], name="Sprite", texture=None, x=100, y=100, width=0, height=0, color=(255,255,255), active=True, flip_y=False, flip_x=True):
         super().__init__(parent, children or [], name, active)
         self.position[0] = x
         self.position[1] = y
@@ -18,8 +18,7 @@ class SpriteNode(TransformNode):
         else:
             self.texture = None
         
-        if flip_y:
-            self.texture = pygame.transform.flip(self.texture, False, True)
+        self.texture = pygame.transform.flip(self.texture, flip_x, flip_y)
 
     def draw(self, screen, offset=(0, 0)):
         if self.texture != None:
