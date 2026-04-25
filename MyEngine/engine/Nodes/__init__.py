@@ -7,4 +7,5 @@ from engine.Nodes.TransformNode import TransformNode
 from engine.Nodes.UINode import UINode
 from engine.Nodes.PlayerNode import PlayerNode
 from engine.Nodes.Timer import TimerNode
+from engine.Nodes.AnimatedSprite import AnimatedSprite
 from engine.Nodes.ScrollingBackground import ScrollingBackground
