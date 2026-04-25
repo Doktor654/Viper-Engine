@@ -1,12 +1,16 @@
 import pygame
 from engine.Nodes.TransformNode import TransformNode
 from engine.CollisionSystem import CollisionSystem
+from engine.Core.Signal import Signal
 
 class CollisionBody(TransformNode):
     def __init__(self, parent, children=[], name="CollisionBody",color=(100,100,100) ,x=0, y=0, active=True, width=0, height=0, collision_type="Rect", static=True):
         super().__init__(parent, children or [], name, active)
         self.position[0] = x
         self.position[1] = y
+
+        # collide signal
+        self._on_collision = Signal()
 
         self.color = color
 
@@ -31,8 +35,8 @@ class CollisionBody(TransformNode):
     def _update_node(self, node, delta, the_input):
         pass
     def on_collision(self, other):
-        if other.static:
-            self.parent.collided(self.get_rect(), other.get_rect())
+        self._on_collision.emit(self, other)
+        self.parent.collided(self.get_rect(), other.get_rect())
             
         #print("%s Collided with %s" % (self.name, other.name))
 
