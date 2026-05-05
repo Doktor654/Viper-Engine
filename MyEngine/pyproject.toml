@@ -1,6 +1,6 @@
 [project]
 name = "viper-pygame-engine"
-version = "0.1.0"
+version = "0.1.1"
 description = "A lightweight Python game engine with a node-based scene system"
 requires-python = ">=3.10"
 dependencies = ["pygame-ce"]
@@ -9,5 +9,11 @@ dependencies = ["pygame-ce"]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+py-modules = ["viper_cli"]
+
 [tool.setuptools.packages.find]
 include = ["engine*", "Renderer*"]
+
+[project.scripts]
+viper = "viper_cli:main"
