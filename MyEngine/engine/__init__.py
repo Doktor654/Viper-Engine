@@ -6,5 +6,6 @@ from engine.game_loop import GameLoop
 from engine.Core.Signal import Signal
 from engine.Core.DataManager import DataManager
 from Renderer.renderer import Renderer
+from engine.Game import Game
 
 from engine.Nodes import *
