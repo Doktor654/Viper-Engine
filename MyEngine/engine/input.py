@@ -40,3 +40,5 @@ class Input:
             self.current_mouse[button] and
             not self.previous_mouse[button]
         )
+    def get_mouse_position(self):
+        return pygame.mouse.get_pos()
