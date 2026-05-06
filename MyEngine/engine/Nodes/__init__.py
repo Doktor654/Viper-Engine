@@ -10,3 +10,4 @@ from engine.Nodes.Timer import TimerNode
 from engine.Nodes.AnimatedSprite import AnimatedSprite
 from engine.Nodes.AudioPlayer import AudioPlayer
 from engine.Nodes.ScrollingBackground import ScrollingBackground
+from engine.Nodes.GridNode import GridNode
