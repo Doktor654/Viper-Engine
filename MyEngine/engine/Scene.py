@@ -6,8 +6,9 @@ from engine.Nodes.Camera import CameraNode
 from engine.Nodes.CollisionBody import CollisionBody
 
 class Scene:
-    def __init__(self, the_input):
+    def __init__(self, the_input, the_scene_manager):
         self.input = the_input
+        self.scene_manager = the_scene_manager
         self.root = Node(parent=None, children=[], name="Root", active=True)
     
     def Initialize(self, collision_system):

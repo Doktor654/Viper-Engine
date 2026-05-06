@@ -4,14 +4,14 @@ import os
 MAIN_TEMPLATE = """from engine import *
 from GameScene import GameScene
 
-Game(GameScene, screen_size=(1280, 720), fps=60).run()
+Game(scenes={"game": GameScene},start_scene="game", screen_size=(1280, 720), fps=60).run()
 """
 
 SCENE_TEMPLATE = """from engine import *
 
 class GameScene(Scene):
-    def __init__(self, input):
-        super().__init__(input)
+    def __init__(self, input, scene_manager):
+        super().__init__(input, scene_manager)
         
 """
 
