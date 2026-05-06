@@ -27,7 +27,8 @@ class SceneManager():
         self.current_scene = target
         self.the_renderer.scene = self.current_scene
         self.current_scene.Initialize(self.the_collision_system)
-        self.the_game_loop.run(self.current_scene)
+        self.the_collision_system.clear_collisions()
+        self.the_game_loop.scene = self.current_scene
 
      ## Help functions
     def get_current_scene(self):

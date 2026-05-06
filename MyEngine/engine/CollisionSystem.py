@@ -19,3 +19,7 @@ class CollisionSystem:
                 A.on_collision(B)
                 B.on_collision(A)
 
+    def clear_collisions(self):
+        self.collision_bodies = []
+        
+
