@@ -64,10 +64,16 @@ class Renderer:
         offset = (0, 0)
 
         if self.scene.camera:
-            offset = (
-                self.scene.camera.position[0] - (self.base_size[0] / 2),
-                self.scene.camera.position[1] - (self.base_size[1] / 2)
-            )
+            if self.scene.camera.centered:
+                offset = (
+                    self.scene.camera.position[0] - (self.base_size[0] / 2),
+                    self.scene.camera.position[1] - (self.base_size[1] / 2)
+                )
+            else:
+                offset = (
+                    self.scene.camera.position[0],
+                    self.scene.camera.position[1]
+                )
 
         node.draw(self.game_surface, offset)
 

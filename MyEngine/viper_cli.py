@@ -12,7 +12,14 @@ SCENE_TEMPLATE = """from engine import *
 class GameScene(Scene):
     def __init__(self, input, scene_manager):
         super().__init__(input, scene_manager)
-        
+
+    def Initialize(self, collision_system):
+        super().Initialize(collision_system)
+        # Setup your scene here
+        # self.camera is now available
+
+    def update(self, delta, input):
+        super().update(delta, input)
 """
 
 def main():
