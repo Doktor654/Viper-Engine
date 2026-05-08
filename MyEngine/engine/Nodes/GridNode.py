@@ -2,9 +2,11 @@ import pygame
 from engine.Nodes.TransformNode import TransformNode
 
 class GridNode(TransformNode):
-    def __init__(self, parent, children=[], name="GridNode", active=True, cell_size=[16, 16], columns=16, rows=16, debug=False):
+    def __init__(self, parent, children=[], name="GridNode", active=True, cell_size=[16, 16], columns=16, rows=16, debug=False, x=0, y=0):
         super().__init__(parent, children, name, active)
 
+        self.position[0] = x
+        self.position[1] = y
         self.cell_size = cell_size
         self.columns = columns
         self.rows = rows
@@ -19,8 +21,8 @@ class GridNode(TransformNode):
         # Create Grid Rect Size
         # Left, Right, Width, Height
         return [
-            column * self.cell_size[0],
-            row * self.cell_size[1],
+            self.position[0] + column * self.cell_size[0],
+            self.position[1] + row * self.cell_size[1],
             self.cell_size[0],
             self.cell_size[1]
         ]
@@ -46,13 +48,13 @@ class GridNode(TransformNode):
         return super().draw(screen, offset)
     
     def get_world_position(self, x,y):
-        col = int(x // self.cell_size[0])
-        row = int(y // self.cell_size[1])
+        col = int((x - self.position[0]) // self.cell_size[0])
+        row = int((y - self.position[1]) // self.cell_size[1])
 
         return (col, row)
     def get_cell_to_world_position(self, x,y):
-        pos_x = x * self.cell_size[0]
-        pos_y = y * self.cell_size[1]
+        pos_x = self.position[0] + x * self.cell_size[0]
+        pos_y = self.position[1] + y * self.cell_size[1]
 
         return (pos_x, pos_y)
     def set_cell(self, col, row, data):
